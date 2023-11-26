@@ -210,14 +210,12 @@ class DownloadManager:
         # TODO: In the future it might make sense to have local provider specific instances
         cache_info = scan_cache_dir()
         hugging_face_local = self.storage.get_provider("huggingface-local")
- 
+
         for repo_info in cache_info.repos:
             repo_id = repo_info.repo_id
             repo_type = repo_info.repo_type
             if repo_type == "model":
-                if hugging_face_local.has_model(repo_id):
-                    continue
-                else:
+                if not hugging_face_local.has_model(repo_id):
                     model = Model(
                         name=repo_id,
                         capabilities=hugging_face_local.default_capabilities,
