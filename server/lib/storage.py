@@ -235,24 +235,24 @@ class Storage:
 
         self.event_emitter.emit(EVENTS.SAVED_TO_DISK)
 
-    def import_config(config_path: str):
+    def import_config(self):
         '''
         Imports the models.json file from the specified path
         '''
-        if not os.path.exists(config_path):
-            raise FileNotFoundError(f'{config_path} not found')
-        
-        with open(config_path, 'r') as f:
+        if not os.path.exists(self):
+            raise FileNotFoundError(f'{self} not found')
+
+        with open(self, 'r') as f:
             with open(os.path.join(APP_DIR, 'models.json'), 'w') as f2:
                 f2.write(f.read())
 
-    def export_config(output_path: str):
+    def export_config(self):
         '''
         Exports the models.json file to the specified path
         '''
         if not os.path.exists(os.path.join(APP_DIR, 'models.json')):
             raise FileNotFoundError('models.json not found')
-        
+
         with open(os.path.join(APP_DIR, 'models.json'), 'r') as f:
-            with open(output_path, 'w') as f2:
+            with open(self, 'w') as f2:
                 f2.write(f.read())
